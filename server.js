@@ -50,6 +50,12 @@ app.post("/registrar", async (req, res) => {
             return res.status(400).json({ mensaje: "El correo ya se encuentra registrado" });
         }
 
+
+        const hoy = new Date();
+        const fechaFormateada = hoy.getFullYear() + '-' +
+            String(hoy.getMonth() + 1).padStart(2, '0') + '-' +
+            String(hoy.getDate()).padStart(2, '0');
+
         //Crear nuevo usuario
         const nuevoUsuario = new Usuarios({
             nombres,
@@ -59,7 +65,7 @@ app.post("/registrar", async (req, res) => {
             telefono,
             fecha_nacimiento,
             direccion,
-            fecha_creacion,
+            fecha_creacion: fechaFormateada,
             activo: true
         });
         //Guardar en base de datos
